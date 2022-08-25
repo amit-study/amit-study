@@ -1,7 +1,5 @@
 
-cmd="eval ffmpeg -i $link -bsf:a aac_adtstoasc -vcodec copy -c copy -crf 50 $filename.mp4"
-
-
+cmd="-bsf:a aac_adtstoasc -vcodec copy -c copy -crf 50"
 link="https://www10.gogocdn.stream/videos/hls/_boDaBFgZpJZTAvFg1jNOQ/1661373968/41829/28da4cc6217f37bdb61dcfa3c785827f/ep.115.1645524708.1080.m3u8"
 filename="115"
-eval $cmd
+eval ffmpeg -i $link $cmd $filename.mp4
