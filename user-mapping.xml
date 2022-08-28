@@ -9,7 +9,6 @@
 <param name="font-size">10</param>
 <param name="color-scheme">black-white</param>
 </connection>
-<authorize username="rdp" password="rdp">
 <connection name="rdp">
 <protocol>rdp</protocol>
 <param name="hostname">localhost</param>
