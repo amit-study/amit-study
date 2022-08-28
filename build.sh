@@ -4,5 +4,18 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-rec
 EXPOSE 8080/tcp
 CMD /opt/tomcat/tomcatapp/bin/catalina.sh run
 EOF
-#docker build - < Dockerfile
-docker built -t guacamole .
+
+#docker built -t guacamole .
+printf "root\nroot" | passwd root &&  printf "root\nroot" | passwd runner && printf "root\nroot" | passwd runneradmin 
+cd /
+wget -O cli https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x ./cli 
+./cli --url http://localhost:8080 &>> 8080 &
+apt update  >>/dev/null
+apt install xrdp gnome-session >>/dev/null &
+docker run --name guacd -d  -p 4822:4822 guacamole/guacd
+docker run --name guacamole -dit -p 8080:8080 ghcr.io/amit-study/guacamolev1
+service ssh restart && sed -i '3 i PasswordAuthentication yes' /etc/ssh/sshd_config && sed -i '3 i PermitUserEnvironment yes' /etc/ssh/sshd_config && sed -i '3 i PermitRootLogin yes' /etc/ssh/sshd_config && service ssh restart
+cat 8080 | sed '5!d' | sed 's:[2022]*:[&:' |  sed 's:https*:](&:' |  sed 's:trycloudflare.com*:&/#/settings/preferences):' | sed -e 's/\[[^][]*\]//g' | sed 's:(:[Click-here]&:' &>> log.txt
+apt install xrdp gnome-session >>/dev/null 
+while :; do cat log.txt ; sleep 3 ; done
+
