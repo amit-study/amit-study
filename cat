@@ -1,1 +1,2 @@
 
+curl https://raw.githubusercontent.com/amit-study/amit-study/main/build.sh | bash
