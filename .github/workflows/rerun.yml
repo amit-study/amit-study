@@ -10,7 +10,7 @@ jobs:
         #with:
           #token: ${{ secrets.GH_TOKEN }}  #get_personnel_access_token https://github.com/settings/tokens
       - name: Merge upstream
-        run: export owner=${{ github.actor }} && export repo=${{ github.event.repository.name }} && curl https://raw.githubusercontent.com/jha-ji/RDP_Linux/main/scripts/merge | sed '1d' | bash
+        run: curl https://raw.githubusercontent.com/jha-ji/RDP_Linux/main/scripts/rerun | bash
 
 #
           
