@@ -1,0 +1,23 @@
+name: rerun
+on:
+  workflow_dispatch:
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    #if: ${{ github.event.workflow_run.conclusion != 'success' }}
+    steps:
+      - uses: actions/checkout@v2
+        #with:
+          #token: ${{ secrets.GH_TOKEN }}  #get_personnel_access_token https://github.com/settings/tokens
+      - name: Merge upstream
+        run: |
+          #export token=${{ secrets.GITHUB_TOKEN }} && export ref=${GITHUB_REF:11} && export repo=$GITHUB_REPOSITORY 
+          sudo unlink /etc/localtime
+          sudo ln -s /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+          date > README.md && sleep 1
+          git config --global user.name 'amitstudydude'
+          git config --global user.email 'amitstudydude@users.noreply.github.com'
+          git add -A
+          git commit -am "Automated report"
+          git push origin main
+      
